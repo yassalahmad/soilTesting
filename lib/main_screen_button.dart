@@ -23,7 +23,7 @@ class CategoryCard extends StatelessWidget {
             color: Colors.grey.withOpacity(0.5),
             spreadRadius: 3,
             blurRadius: 4,
-            offset: Offset(0, 10), // changes position of shadow
+            offset: const Offset(0, 10), // changes position of shadow
           ),
         ],
       ),
@@ -32,19 +32,13 @@ class CategoryCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           buttonIcon,
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
           Text(
             title,
             textAlign: TextAlign.center,
-            // style: TextStyle(
-            //   color: Color(0xff6dc8ad),
-
-            //   fontSize: 15,
-            // ),
-
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 15,
               fontFamily: "Horizon",
               color: Colors.green,

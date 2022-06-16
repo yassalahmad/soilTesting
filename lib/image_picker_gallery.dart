@@ -1,12 +1,14 @@
+// ignore: file_names
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:soiltesting/mainScreenButton.dart';
+import 'package:soiltesting/main_screen_button.dart';
 
 enum ImageSourceType { gallery, camera }
 
-class ImagePickerCamera extends StatelessWidget {
+// ignore: use_key_in_widget_constructors
+class ImagePickerGallery extends StatelessWidget {
   void _handleURLButtonPress(BuildContext context, var type) {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => ImageFromGalleryEx(type)));
@@ -15,51 +17,57 @@ class ImagePickerCamera extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Camera Scanner"),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Colors.green,
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            // ignore: avoid_unnecessary_containers
-            Container(
-              child: GestureDetector(
-                child: const CategoryCard(
-                  buttonIcon: Icon(
-                    Icons.camera_alt,
-                    size: 40,
-                  ),
-                  title: 'Scan Image',
-                ),
-                onTap: () {
-                  _handleURLButtonPress(context, ImageSourceType.camera);
-                },
-              ),
-            ),
-          ],
+        appBar: AppBar(
+          title: const Text("Gallery Image Picker"),
+          centerTitle: true,
+          elevation: 0,
+          backgroundColor: Colors.green,
         ),
-      ),
-    );
+        body: Center(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              // ignore: avoid_unnecessary_containers
+              Container(
+                child: GestureDetector(
+                  child: const CategoryCard(
+                    
+                    buttonIcon: Icon(
+                      Icons.image,
+                      size: 40,
+                    ),
+                    title: 'Get Image From Gallery',
+                  ),
+                  onTap: () {
+                    _handleURLButtonPress(context, ImageSourceType.gallery);
+                  },
+                ),
+              ),
+            ],
+          ),
+        ));
   }
 }
 
 class ImageFromGalleryEx extends StatefulWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final type;
-  ImageFromGalleryEx(this.type);
+  // ignore: use_key_in_widget_constructors
+  const ImageFromGalleryEx(this.type);
 
   @override
-  ImageFromGalleryExState createState() => ImageFromGalleryExState(this.type);
+  // ignore: no_logic_in_create_state
+  ImageFromGalleryExState createState() => ImageFromGalleryExState(type);
 }
 
 class ImageFromGalleryExState extends State<ImageFromGalleryEx> {
+  // ignore: prefer_typing_uninitialized_variables
   var _image;
+  // ignore: prefer_typing_uninitialized_variables
   var imagePicker;
+  // ignore: prefer_typing_uninitialized_variables
   var type;
 
   ImageFromGalleryExState(this.type);
@@ -69,7 +77,7 @@ class ImageFromGalleryExState extends State<ImageFromGalleryEx> {
     // ignore: todo
     // TODO: implement initState
     super.initState();
-    imagePicker = new ImagePicker();
+    imagePicker = ImagePicker();
   }
 
   @override
@@ -77,25 +85,23 @@ class ImageFromGalleryExState extends State<ImageFromGalleryEx> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: Text("Image from Camera"),
+        title: const Text("Image from Gallery"),
         centerTitle: true,
         backgroundColor: Colors.green,
       ),
       body: Column(
         children: <Widget>[
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
           Center(
             child: GestureDetector(
               onTap: () async {
-                var source = type == ImageSourceType.camera
-                    ? ImageSource.camera
-                    : ImageSource.gallery;
+                var source = ImageSource.gallery;
                 XFile image = await imagePicker.pickImage(
-                    source: source,
-                    imageQuality: 100,
-                    preferredCameraDevice: CameraDevice.rear);
+                  source: source,
+                  imageQuality: 100,
+                );
                 setState(() {
                   _image = File(image.path);
                 });
@@ -114,7 +120,7 @@ class ImageFromGalleryExState extends State<ImageFromGalleryEx> {
                         width: 200,
                         height: 200,
                         child: Icon(
-                          Icons.camera_alt,
+                          Icons.image,
                           size: 75,
                           color: Colors.grey[800],
                         ),
